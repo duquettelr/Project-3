@@ -17,21 +17,21 @@ app.get("/api/Students/:UserId", function (req, res) {
 });
 
 //individual student info
-app.get("api/Students/:StudentId", function (req, res) {
+app.get("/api/Students/:StudentId", function (req, res) {
     db.Student.findOne({ where: { id: req.body.StudentId } }).then(function (dbStudent) {
         res.json(dbStudent)
     });
 });
 
 //get student behavior
-app.get("api/Behaviors/:StudentId", function (req, res) {
-    db.Behavior.findOne({ where: { StudentId: req.body.StudentId } }).then(function (dbBehavior) {
+app.get("/api/Behaviors/:StudentId", function (req, res) {
+    db.Behavior.findAll({ where: { StudentId: req.params.StudentId } }).then(function (dbBehavior) {
         res.json(dbBehavior)
     });
 });
 
 //get num student behavior
-app.get("api/Num_Behaviors/:BehaviorId", function (req, res) {
+app.get("/api/Num_Behaviors/:BehaviorId", function (req, res) {
     db.Num_Behavior.findAll({ where: { BehaviorId: req.body.BehaviorId } }).then(function (dbNum_Behavior) {
         res.json(dbNum_Behavior)
     });
@@ -67,13 +67,8 @@ app.post("/api/Student/:UserId", function (req, res) {
 
 //add behavior for student
 app.post("/api/Behavior/:StudentId", function (req, res) {
-    db.Student.create({
-        name: req.body.name,
-        classroom_number: req.body.classroom_number,
-        age: req.body.age,
-        date_of_birth: req.body.date_of_birth,
-        teacher_name: req.body.teacher_name,
-        bcba_name: req.body.bcba_name,
+    db.Behavior.create({
+        type: req.body.type,
         StudentId: req.params.StudentId
     }).then(response => {
         console.log(response);
@@ -81,7 +76,7 @@ app.post("/api/Behavior/:StudentId", function (req, res) {
 });
 
 //add number of behaviors for each unique behavior
-app.post("/api/behavior/:BehaviorId", function (req, res) {
+app.post("/api/num_behavior/:BehaviorId", function (req, res) {
     db.Student.create({
         num_behavior: req.body.num_behavior,
         notes: req.body.notes,

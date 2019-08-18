@@ -3,6 +3,7 @@ import axios from "axios";
 import StudentList from "./components/studentList";
 import AddStudent from "./components/addStudent";
 import { Button, Modal, Form } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
     state = {
