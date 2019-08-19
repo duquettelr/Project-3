@@ -6,7 +6,6 @@ import BehaviorTracker from "./behaviorTracker";
 
 const userTemp = 1;
 class StudentList extends Component {
-
     state = {
         students: [],
         behaviors: [
@@ -24,13 +23,13 @@ class StudentList extends Component {
                 "updatedAt": "2019-08-18T14:54:10.000Z",
                 "StudentId": 1
             },
-            {
-                "id": 3,
-                "type": "Pica",
-                "createdAt": "2019-08-18T14:56:15.000Z",
-                "updatedAt": "2019-08-18T14:56:15.000Z",
-                "StudentId": 1
-            },
+            // {
+            //     "id": 3,
+            //     "type": "Pica",
+            //     "createdAt": "2019-08-18T14:56:15.000Z",
+            //     "updatedAt": "2019-08-18T14:56:15.000Z",
+            //     "StudentId": 1
+            // },
             {
                 "id": 4,
                 "type": "Self-harm",
@@ -61,7 +60,7 @@ class StudentList extends Component {
 
 
     render() {
-
+        console.log(this.props);
         return (
             <div>
                 <div className="container">

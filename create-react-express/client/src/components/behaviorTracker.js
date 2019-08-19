@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import StudentList from "./studentList";
 import { Modal, Button } from 'react-bootstrap';
+import AddBehavior from "./addBehavior";
 // import axios from "axios";
 // import { Modal, Button } from 'react-bootstrap';
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -39,8 +40,24 @@ class BehaviorTracker extends Component {
                 "StudentId": 1
             }
         ],
-        behaviorValue: 0
+        behaviorValue: 0,
+        show: false
     };
+
+
+    showModal = () => {
+        this.setState({ show: !this.state.show });
+    }
+    handleClose = () => {
+        this.setState({ show: !this.state.show });
+    };
+
+    saveChanges = (behavior) => {
+        console.log(behavior);
+        // axios.post("/api/Student/1", student).then(function (results) {
+        //     console.log(results)
+        // });
+    }
 
     // componentDidMount() {
     //     axios.get(`/api/Students/${userTemp}`)
@@ -58,22 +75,40 @@ class BehaviorTracker extends Component {
         })
     }
 
-    increase = () => {
-        this.state.behaviorValue++
-        console.log(this.state.behaviorValue)
+    increase = (e) => {
+        this.setState({
+            behaviorValue: this.state.behaviorValue + 1
+        })
     }
 
-    decrease = () => {
-        this.state.behaviorValue--
-        console.log(this.state.behaviorValue)
+    decrease = (e) => {
+        this.setState({
+            behaviorValue: this.state.behaviorValue - 1
+        })
+    }
+
+    sendData = (e) => {
+        console.log("send")
+    }
+
+    addBehavior = (e) => {
+        console.log("add")
     }
 
     render() {
 
+        console.log(this.props);
         console.log(this.state.behaviorValue);
 
         return (
             <div>
+                <Button onClick={this.showModal}>Add Behavior</Button>
+                <AddBehavior
+                    show={this.state.show}
+                    handleClose={this.handleClose}
+                    onHide={this.handleClose}
+                    onSaveChanges={this.saveChanges}
+                />
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
@@ -83,6 +118,9 @@ class BehaviorTracker extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <ul className="list-group">
+                                {/* I want student ID and behavior Id to be in "props" 
+                            so I can access student ID when I add a new behavior and I 
+                            can access behavior ID when I post to import data*/}
                                 {this.state.behaviors.map(result => (
                                     <li className="list-group-item" key={result.id}>{result.type}
                                         <Button onClick={this.increase}>+</Button>
@@ -97,7 +135,7 @@ class BehaviorTracker extends Component {
                                     </li>
                                 ))}
                             </ul>
-                            <Button>Import Data</Button>
+                            <Button onClick={this.sendData}>Import Data</Button>
                         </div>
                     </div>
                 </div>

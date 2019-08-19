@@ -4,6 +4,7 @@ import StudentList from "./components/studentList";
 import AddStudent from "./components/addStudent";
 import { Button, Modal, Form } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Login from "./components/Login"
 
 class App extends Component {
     state = {
@@ -36,9 +37,13 @@ class App extends Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="#">Fast-Track</a>
-                </nav>
+                <Router>
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <a className="navbar-brand" href="#">Fast-Track</a>
+                        <button className="btn btn-outline-primary my-2 my-sm-0" type="submit"><Link to="/Login/">Login</Link></button>
+                    </nav>
+                    <Route path="/Login/" component={Login} />
+                </Router>
                 <React.Fragment>
                     <Button onClick={this.showModal}>Add Student</Button>
                     <AddStudent

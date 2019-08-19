@@ -32,16 +32,9 @@ export default class AddStudent extends Component {
                 show={this.props.show}
                 onHide={this.props.handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Add Student</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* "name": "Test",
-                "classroom_number": 1,
-                "age": 27,
-                "date_of_birth": "07/01/1992",
-                "teacher_name": "Mark",
-                "bcba_name": "BCBA" */}
-
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Name</Form.Label>
