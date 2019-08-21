@@ -1,13 +1,32 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Modal, Button } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, withRouter } from "react-router-dom";
 import BehaviorTracker from "./behaviorTracker";
+import AddStudent from "./addStudent"
 
 const userTemp = 1;
 class StudentList extends Component {
+    //     state = {
+    //     show: false
+    // }
+
+    showModal = () => {
+        this.setState({ show: !this.state.show });
+    }
+    handleClose = () => {
+        this.setState({ show: !this.state.show });
+    };
+
+    saveChanges = (student) => {
+        console.log(student);
+        axios.post("/api/Student/1", student).then(function (results) {
+            console.log(results)
+        });
+    }
     state = {
         students: [],
+        show: false,
         behaviors: [
             {
                 "id": 1,
@@ -49,20 +68,34 @@ class StudentList extends Component {
     }
 
 
-    displayBehaviors() {
-        console.log(this.id)
-        axios.get(`/api/Behaviors/${this.id}`)
-            .then(function (results) {
-                console.log(results)
-                // this.setState({ behaviors: results.data });
-            })
+    displayBehaviors = ()=> {
+        console.log(this.props.id)
+        // axios.get(`/api/Behaviors/${this.id}`)
+        //     .then(function (results) {
+        //         console.log(results)
+        //         // this.setState({ behaviors: results.data });
+        //     })
+        this.props.history.push(`/BehaviorTracker/${this.id}`)
     }
 
+    // showModal = () => {
+    //     this.setState({ show: !this.state.show });
+    // }
 
     render() {
         console.log(this.props);
         return (
             <div>
+                <React.Fragment>
+                    <Button onClick={this.showModal}>Add Student</Button>
+                    <AddStudent
+                        show={this.state.show}
+                        handleClose={this.handleClose}
+                        onHide={this.handleClose}
+                        onSaveChanges={this.saveChanges}
+                    />
+
+                </React.Fragment>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
@@ -83,10 +116,9 @@ class StudentList extends Component {
                                     </li> */}
                                     {this.state.students.map(result => (
                                         <li className="list-group-item" key={result.id}>
-                                            <Link to="/BehaviorTracker/" onClick={this.displayBehaviors} id={result.id}>{result.name}</Link>
+                                            <Link to={"/Students/"+result.id} id={result.id}>{result.name}</Link>
                                         </li>
                                     ))}
-                                    <Route path="/BehaviorTracker/" component={BehaviorTracker} />
                                 </Router>
                             </ul>
                         </div>

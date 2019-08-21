@@ -2,28 +2,29 @@ import React, { Component } from "react";
 import axios from "axios";
 import StudentList from "./components/studentList";
 import AddStudent from "./components/addStudent";
+import BehaviorTracker from "./components/behaviorTracker.js";
 import { Button, Modal, Form } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./components/Login"
 
 class App extends Component {
-    state = {
-        show: false
-    }
+    // state = {
+    //     show: false
+    // }
 
-    showModal = () => {
-        this.setState({ show: !this.state.show });
-    }
-    handleClose = () => {
-        this.setState({ show: !this.state.show });
-    };
+    // showModal = () => {
+    //     this.setState({ show: !this.state.show });
+    // }
+    // handleClose = () => {
+    //     this.setState({ show: !this.state.show });
+    // };
 
-    saveChanges = (student) => {
-        console.log(student);
-        axios.post("/api/Student/1", student).then(function (results) {
-            console.log(results)
-        });
-    }
+    // saveChanges = (student) => {
+    //     console.log(student);
+    //     axios.post("/api/Student/1", student).then(function (results) {
+    //         console.log(results)
+    //     });
+    // }
 
     //   componentDidMount() {
     //     axios.get("/api/restaurant").then(results => {
@@ -40,11 +41,15 @@ class App extends Component {
                 <Router>
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a className="navbar-brand" href="#">Fast-Track</a>
-                        <button className="btn btn-outline-primary my-2 my-sm-0" type="submit"><Link to="/Login/">Login</Link></button>
+                        <button className="btn btn-outline-primary my-2 my-sm-0" type="submit"><Link to="/">Login</Link></button>
                     </nav>
-                    <Route path="/Login/" component={Login} />
+                 <Switch>
+                    <Route exact path="/" component={Login} />
+                    <Route path="/List" component={StudentList} />
+                    <Route path="/Students/:id" component={BehaviorTracker} />
+                </Switch>
                 </Router>
-                <React.Fragment>
+                {/* <React.Fragment>
                     <Button onClick={this.showModal}>Add Student</Button>
                     <AddStudent
                         show={this.state.show}
@@ -53,16 +58,11 @@ class App extends Component {
                         onSaveChanges={this.saveChanges}
                     />
 
-                </React.Fragment>
-                <StudentList></StudentList>
+                </React.Fragment> */}
+                {/* <StudentList></StudentList> */}
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            {/* <AddStudent
-                        // name="studentName"
-                        // value={this.state.studentName}
-                        // onChange={this.handleInputChange}
-                        /> */}
                         </div>
 
                     </div>
