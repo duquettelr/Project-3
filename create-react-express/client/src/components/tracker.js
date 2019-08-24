@@ -3,7 +3,6 @@ import StudentList from "./studentList";
 import { Modal, Button } from 'react-bootstrap';
 import AddBehavior from "./addBehavior";
 import axios from "axios";
-// import { Modal, Button } from 'react-bootstrap';
 import {withRouter } from "react-router-dom";
 
 
@@ -23,36 +22,54 @@ class Tracker extends Component {
     }
 
     increase = (e) => {
-        console.log(e)
+        const newValue = this.state.behaviorValue + 1;
+
         this.setState({
-            behaviorValue: this.state.behaviorValue + 1
+            behaviorValue: newValue
         })
+
+        this.props.onBehaviorValueChange(newValue);
     }
 
     decrease = (e) => {
+        const newValue = this.state.behaviorValue - 1;
+
         this.setState({
-            behaviorValue: this.state.behaviorValue - 1
+            behaviorValue: newValue 
         })
+
+        this.props.onBehaviorValueChange(newValue);
     }
 
+    sendData = () => {
+        // console.log(this.props.id)
+             axios.post(`/api/num_behavior/${this.props.id}`, {num_behavior: this.state.behaviorValue}).then(results => {
+            console.log(results)
+        });
+
+        this.setState({
+            behaviorValue: 0
+        })
+    }
 
     render(props) {
         console.log(this.props)
 
         return (
             <div>
-                 <li className="list-group-item" 
-                    > {this.props.name}
-                        <Button onClick={ () => this.increase({id:1})}>+</Button>
-                        <Button onClick={ () => this.decrease({id:1})}>-</Button>
-                         <p 
+                 <li className="track list-group-item behavior" 
+                    > {this.props.name} <span className="trackButtons">
+                        <Button variant="warning" size="lg" className="calcButton" onClick={ () => this.increase()}>   +   </Button>
+                        <Button variant="warning" size="lg" className="calcButton" onClick={ () => this.decrease()}>   -   </Button>
+                         </span><span 
                             name="behaviorValue"
-                            className="text-right"
+                            className="text-right number"
                             value={this.state.behaviorValue}
                             onChange={this.handleChange}
                             type="name"
-                        >{this.state.behaviorValue}</p>
+                        >{this.state.behaviorValue}</span>
                     </li>
+                    <Button variant="secondary" onClick={this.sendData}>Import Data</Button>
             </div>
         )
     }

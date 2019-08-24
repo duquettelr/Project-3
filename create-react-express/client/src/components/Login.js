@@ -1,9 +1,4 @@
-//to do:
-//log in page / authentication
-//get router to work properly so student list is hidden
-//get the api call to retrieve behaviors to add the behaviors to the state to be used for display
-//figure out how to seperate out behavior numbers for the tracker
-//figure out how to access the student ID to make the post request for numbers of behaviors
+import axios from "axios";
 import React, { Component } from "react";
 import { Button, Modal, Form } from 'react-bootstrap';
 
@@ -22,13 +17,20 @@ export default class Login extends Component {
     }
 
     login = (e) => {
-        console.log("logging in")
+        e.preventDefault();
+        console.log(this.state);
+        axios.post('/api/User', {
+            email: this.state.email,
+            password: this.state.password
+        }).then(res => localStorage.setItem('cool-jwt', res.data));
     }
 
     render() {
         return (
             <div>
-                <h1>Login</h1>
+            <h1 className="title">Fast-Track</h1>
+            <div className="loginCard">
+                <h3>Login</h3>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
@@ -45,15 +47,17 @@ export default class Login extends Component {
                         <Form.Control
                             name="password"
                             value={this.state.password}
-                            type="name"
+                            // type="name"
+                            type="password"
                             placeholder="Password"
                             onChange={this.handleChange}
                         />
                     </Form.Group>
-                    <Button variant="primary" onClick={this.login}>
+                    <Button variant="secondary" type="submit" onClick={this.login}>
                         Login
                     </Button>
                 </Form>
+            </div>
             </div>
         );
     }

@@ -3,10 +3,6 @@ module.exports = function (sequelize, DataTypes) {
         num_behavior: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        notes: {
-            type: DataTypes.STRING,
-            allowNull: false
         }
     });
 
@@ -16,6 +12,12 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false
             }
         });
+
+        // models.Num_Behavior.belongsTo(models.Student, {
+        //     foreignKey: {
+        //         allowNull: false
+        //     }
+        // });
     };
 
     return Num_Behavior;

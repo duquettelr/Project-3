@@ -3,50 +3,31 @@ import axios from "axios";
 import StudentList from "./components/studentList";
 import AddStudent from "./components/addStudent";
 import BehaviorTracker from "./components/behaviorTracker.js";
-import { Button, Modal, Form } from 'react-bootstrap';
+import BehaviorGraph from "./components/behaviorGraph"
+import { Button, Modal, Form, Navbar, Nav } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./components/Login"
+import "./index.css";
 
 class App extends Component {
-    // state = {
-    //     show: false
-    // }
-
-    // showModal = () => {
-    //     this.setState({ show: !this.state.show });
-    // }
-    // handleClose = () => {
-    //     this.setState({ show: !this.state.show });
-    // };
-
-    // saveChanges = (student) => {
-    //     console.log(student);
-    //     axios.post("/api/Student/1", student).then(function (results) {
-    //         console.log(results)
-    //     });
-    // }
-
-    //   componentDidMount() {
-    //     axios.get("/api/restaurant").then(results => {
-    //       console.log(results);
-    //       this.setState({
-    //         restaurants: results.data
-    //       })
-    //     });
-    //   }
 
     render() {
         return (
             <div>
                 <Router>
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a className="navbar-brand" href="#">Fast-Track</a>
-                        <button className="btn btn-outline-primary my-2 my-sm-0" type="submit"><Link to="/">Login</Link></button>
-                    </nav>
+                    <Navbar variant="light" bg="light">
+                    <Navbar.Brand href="#home">Fast-Track</Navbar.Brand>
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/List">Student List</Nav.Link>
+                        <Nav.Link href="/">Login</Nav.Link>
+                        </Nav>
+                    </Navbar>
                  <Switch>
                     <Route exact path="/" component={Login} />
                     <Route path="/List" component={StudentList} />
+                    <Route path="/Data" component={BehaviorGraph} />
                     <Route path="/Students/:id" component={BehaviorTracker} />
+                    <Route exact path="/Student/:id/Data" component={BehaviorGraph} />
                 </Switch>
                 </Router>
                 {/* <React.Fragment>

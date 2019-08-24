@@ -26,7 +26,7 @@ export default class AddBehavior extends Component {
                 show={this.props.show}
                 onHide={this.props.handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Behavior to Track</Modal.Title>
+                    <Modal.Title>Add Behavior to Tracker</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 
@@ -47,7 +47,7 @@ export default class AddBehavior extends Component {
                     <Button variant="secondary" onClick={this.props.handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={this.save}>
+                    <Button variant="warning" onClick={this.save}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

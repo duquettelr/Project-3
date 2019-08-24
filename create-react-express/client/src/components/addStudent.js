@@ -103,7 +103,7 @@ export default class AddStudent extends Component {
                     <Button variant="secondary" onClick={this.props.handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={this.save}>
+                    <Button variant="warning" onClick={this.save}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

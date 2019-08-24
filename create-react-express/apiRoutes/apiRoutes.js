@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const app = require("express").Router();
 const user = require("../models/user.js");
 const student = require("../models/student.js");
@@ -5,6 +8,32 @@ const behavior = require("../models/behavior.js");
 const num_behavior = require("../models/num_behavior.js");
 const db = require("../models");
 
+// router.post("/register", (req, res) => {
+//   // Form validation
+
+// User.findOne({ email: req.body.email }).then(user => {
+//     if (user) {
+//       return res.status(400).json({ email: "Email already exists" });
+//     } else {
+//       const newUser = new User({
+//         email: req.body.email,
+//         password: req.body.password
+//       });
+
+// // Hash password before saving in database
+//       bcrypt.genSalt(10, (err, salt) => {
+//         bcrypt.hash(newUser.password, salt, (err, hash) => {
+//           if (err) throw err;
+//           newUser.password = hash;
+//           newUser
+//             .save()
+//             .then(user => res.json(user))
+//             .catch(err => console.log(err));
+//         });
+//       });
+
+
+// }
 ///////////////////////////////////////////////DISPLAY INFO//////////////////////////////////////////////////
 
 
@@ -40,7 +69,7 @@ app.get("/api/Num_Behaviors/:BehaviorId", function (req, res) {
 
 //////////////////////////////////////////////CREATE DATA////////////////////////////////////////////
 
-//create user
+//create user//////////////////
 app.post("/api/User", function (req, res) {
     db.User.create({
         email: req.body.email,
@@ -49,6 +78,42 @@ app.post("/api/User", function (req, res) {
         console.log(response);
     });
 });
+////////////////////////////////
+// app.post('/api/User', function(req, res, next) {
+//   const { email, password } = req.body;
+//   createUser({ email, password }).then(User =>
+//     res.json({ User, msg: 'account created successfully' })
+//   );
+// });
+
+// //login route
+// app.post('/api/login', async function(req, res, next) {
+//   const { email, password } = req.body;
+//   if (email && password) {
+//     let User = await getUser({ email: email });
+//     if (!User) {
+//       res.status(401).json({ message: 'No such user found' });
+//     }
+//     if (User.password === password) {
+//       // from now on we'll identify the user by the id and the id is the 
+//       // only personalized value that goes into our token
+//       let payload = { id: User.id };
+//       let token = jwt.sign(payload, jwtOptions.secretOrKey);
+//       res.json({ msg: 'ok', token: token });
+//     } else {
+//       res.status(401).json({ msg: 'Password is incorrect' });
+//     }
+//   }
+// });
+
+// // protected route
+// app.get('/api/protected', passport.authenticate('jwt', { session: false }), function(req, res) {
+//   res.json('Success! You can now see this without a token.');
+// });
+
+
+
+////////////////////////auth//////////////////////////
 
 //create student for user
 app.post("/api/Student/:UserId", function (req, res) {
@@ -77,9 +142,8 @@ app.post("/api/Behavior/:StudentId", function (req, res) {
 
 //add number of behaviors for each unique behavior
 app.post("/api/num_behavior/:BehaviorId", function (req, res) {
-    db.Student.create({
+    db.Num_Behavior.create({
         num_behavior: req.body.num_behavior,
-        notes: req.body.notes,
         BehaviorId: req.params.BehaviorId
     }).then(response => {
         console.log(response);

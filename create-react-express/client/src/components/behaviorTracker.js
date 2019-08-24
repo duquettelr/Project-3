@@ -4,15 +4,17 @@ import { Modal, Button } from 'react-bootstrap';
 import AddBehavior from "./addBehavior";
 import axios from "axios";
 // import { Modal, Button } from 'react-bootstrap';
-import {withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, withRouter } from "react-router-dom";
 import Tracker from "./tracker.js";
+import BehaviorGraph from "./behaviorGraph.js";
 
 
 
 class BehaviorTracker extends Component {
     state = {
         behaviors: [],
-        show: false
+        show: false,
+        behaviorValue: 0
     };
 
 
@@ -37,42 +39,61 @@ class BehaviorTracker extends Component {
             }));
     }
 
-    sendData = (e) => {
-        console.log("send")
-    }
+    // sendData = (e) => {
+    //     console.log(this.props.id)
+    //     // this.setState({behaviorValue: })
+    //     //     axios.post(`/api/num_behavior/${this.props.id}`, {num_behavior: this.state.behaviorValue}).then(results => {
+    //     //     console.log(results)
+    //     // });
+    // }
 
     addBehavior = (e) => {
         console.log("add")
     }
 
+    handleBehaviorValueChange = (behaviorValue) => {
+        console.log(behaviorValue);
+        this.setState({ behaviorValue });
+    }
+
     render() {
 
-        console.log(this.props);
+        console.log("is the student ID in here"+this.props);
         console.log(this.state.behaviorValue);
 
         return (
             <div>
-                <Button onClick={this.showModal}>Add Behavior</Button>
+            <Router>
+            <Link to={"/Student/"+this.props.match.params.id+"/Data"} variant="light">View Data</Link>
+            </Router>
+                <Button variant="secondary" size="xxl" onClick={this.showModal}>Add Behavior</Button>
                 <AddBehavior
                     show={this.state.show}
                     handleClose={this.handleClose}
                     onHide={this.handleClose}
                     onSaveChanges={this.saveChanges}
                 />
-                <div className="container">
+                <div className="container behaviorTracker">
                     <div className="row">
                         <div className="col-md-12">
-                            <h1 className="display-4">Tracker</h1>
+                            <h2 className="display-4">Tracker</h2>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <p className="lead">Click + and - to track behavior frequency.
+                            Click Import to save behavior data.</p>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
                             <ul className="list-group">
                                 {this.state.behaviors.map(result => (
-                                    <Tracker key={result.id} id={result.id} name={result.type} value={this.state.behaviorValue} selected={true}></Tracker>
+                                    <Tracker key={result.id} id={result.id} name={result.type} selected={true}
+                                        onBehaviorValueChange={this.handleBehaviorValueChange}></Tracker>
                                 ))}
                             </ul>
-                            <Button onClick={this.sendData}>Import Data</Button>
+                            {/* <Button onClick={this.send}>Import Data</Button> */}
                         </div>
                     </div>
                 </div>

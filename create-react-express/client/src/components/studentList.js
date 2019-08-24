@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from "react-router-dom";
 import BehaviorTracker from "./behaviorTracker";
 import AddStudent from "./addStudent"
+import App from "../App"
 
 const userTemp = 1;
 class StudentList extends Component {
@@ -87,7 +88,7 @@ class StudentList extends Component {
         return (
             <div>
                 <React.Fragment>
-                    <Button onClick={this.showModal}>Add Student</Button>
+                    <Button variant="secondary" onClick={this.showModal}>Add Student</Button>
                     <AddStudent
                         show={this.state.show}
                         handleClose={this.handleClose}
@@ -96,7 +97,7 @@ class StudentList extends Component {
                     />
 
                 </React.Fragment>
-                <div className="container">
+                <div className="container studentList">
                     <div className="row">
                         <div className="col-md-12">
                             <h1 className="display-4">Student List</h1>
