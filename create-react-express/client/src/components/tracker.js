@@ -43,7 +43,7 @@ class Tracker extends Component {
 
     sendData = () => {
         // console.log(this.props.id)
-             axios.post(`/api/num_behavior/${this.props.id}`, {num_behavior: this.state.behaviorValue}).then(results => {
+             axios.post(`/api/num_behavior/${this.props.id}/${this.props.match.params.id}`, {num_behavior: this.state.behaviorValue}).then(results => {
             console.log(results)
         });
 

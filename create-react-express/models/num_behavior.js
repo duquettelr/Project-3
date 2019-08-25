@@ -13,11 +13,11 @@ module.exports = function (sequelize, DataTypes) {
             }
         });
 
-        // models.Num_Behavior.belongsTo(models.Student, {
-        //     foreignKey: {
-        //         allowNull: false
-        //     }
-        // });
+        models.Num_Behavior.belongsTo(models.Student, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
     };
 
     return Num_Behavior;

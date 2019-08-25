@@ -7,6 +7,8 @@ const student = require("../models/student.js");
 const behavior = require("../models/behavior.js");
 const num_behavior = require("../models/num_behavior.js");
 const db = require("../models");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 // router.post("/register", (req, res) => {
 //   // Form validation
@@ -46,8 +48,8 @@ app.get("/api/Students/:UserId", function (req, res) {
 });
 
 //individual student info
-app.get("/api/Students/:StudentId", function (req, res) {
-    db.Student.findOne({ where: { id: req.body.StudentId } }).then(function (dbStudent) {
+app.get("/api/oneStudent/:id", function (req, res) {
+    db.Student.findOne({ where: { id: req.params.id } }).then(function (dbStudent) {
         res.json(dbStudent)
     });
 });
@@ -60,8 +62,14 @@ app.get("/api/Behaviors/:StudentId", function (req, res) {
 });
 
 //get num student behavior
-app.get("/api/Num_Behaviors/:BehaviorId", function (req, res) {
-    db.Num_Behavior.findAll({ where: { BehaviorId: req.body.BehaviorId } }).then(function (dbNum_Behavior) {
+app.get("/api/Num_Behaviors/:StudentId", function (req, res) {
+    db.Num_Behavior.findAll({ where: { 
+        StudentId: req.params.StudentId,
+        createdAt:{
+        [Op.gte]: new Date(new Date() - 24 * 60 * 60 * 1000)
+        } // square brackets are needed for property names that aren't plain strings
+  }
+         }).then(function (dbNum_Behavior) {
         res.json(dbNum_Behavior)
     });
 });
@@ -141,10 +149,11 @@ app.post("/api/Behavior/:StudentId", function (req, res) {
 });
 
 //add number of behaviors for each unique behavior
-app.post("/api/num_behavior/:BehaviorId", function (req, res) {
+app.post("/api/num_behavior/:BehaviorId/:StudentId", function (req, res) {
     db.Num_Behavior.create({
         num_behavior: req.body.num_behavior,
-        BehaviorId: req.params.BehaviorId
+        BehaviorId: req.params.BehaviorId,
+        StudentId: req.params.StudentId
     }).then(response => {
         console.log(response);
     });

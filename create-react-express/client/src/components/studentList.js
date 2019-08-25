@@ -28,36 +28,7 @@ class StudentList extends Component {
     state = {
         students: [],
         show: false,
-        behaviors: [
-            {
-                "id": 1,
-                "type": "Physical Aggression",
-                "createdAt": "2019-08-18T14:51:35.000Z",
-                "updatedAt": "2019-08-18T14:51:35.000Z",
-                "StudentId": 1
-            },
-            {
-                "id": 2,
-                "type": "Property Destruction",
-                "createdAt": "2019-08-18T14:54:10.000Z",
-                "updatedAt": "2019-08-18T14:54:10.000Z",
-                "StudentId": 1
-            },
-            // {
-            //     "id": 3,
-            //     "type": "Pica",
-            //     "createdAt": "2019-08-18T14:56:15.000Z",
-            //     "updatedAt": "2019-08-18T14:56:15.000Z",
-            //     "StudentId": 1
-            // },
-            {
-                "id": 4,
-                "type": "Self-harm",
-                "createdAt": "2019-08-18T14:58:20.000Z",
-                "updatedAt": "2019-08-18T14:58:20.000Z",
-                "StudentId": 1
-            }
-        ]
+        behaviors: []
     };
 
     componentDidMount() {

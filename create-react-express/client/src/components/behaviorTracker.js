@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import StudentList from "./studentList";
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Navbar, Nav } from 'react-bootstrap';
 import AddBehavior from "./addBehavior";
 import axios from "axios";
 // import { Modal, Button } from 'react-bootstrap';
@@ -64,7 +64,13 @@ class BehaviorTracker extends Component {
         return (
             <div>
             <Router>
-            <Link to={"/Student/"+this.props.match.params.id+"/Data"} variant="light">View Data</Link>
+            <Navbar>
+                    <Nav className="mr-auto">
+                        <Nav.Link href={"/Student/"+this.props.match.params.id+"/Data"}>View Data</Nav.Link>
+                        </Nav>
+            </Navbar>
+            <Route exact path="/Student/:id/Data" component={BehaviorGraph} />
+            {/* <Link to={"/Student/"+this.props.match.params.id+"/Data"} variant="light">View Data</Link> */}
             </Router>
                 <Button variant="secondary" size="xxl" onClick={this.showModal}>Add Behavior</Button>
                 <AddBehavior

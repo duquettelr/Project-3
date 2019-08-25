@@ -8,6 +8,7 @@ import { Button, Modal, Form, Navbar, Nav } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./components/Login"
 import "./index.css";
+import Profile from "./components/profile";
 
 class App extends Component {
 
@@ -28,6 +29,7 @@ class App extends Component {
                     <Route path="/Data" component={BehaviorGraph} />
                     <Route path="/Students/:id" component={BehaviorTracker} />
                     <Route exact path="/Student/:id/Data" component={BehaviorGraph} />
+                    <Route path="/Profile/:id" component={Profile} />
                 </Switch>
                 </Router>
                 {/* <React.Fragment>
