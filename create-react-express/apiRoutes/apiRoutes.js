@@ -75,6 +75,23 @@ app.get("/api/Num_Behaviors/:StudentId", function (req, res) {
 });
 
 
+// app.get("/api/Num_Behaviors_Join/:StudentId", (req, res) => {
+//         db.sequelize.query(`SELECT * FROM num_behaviors nb JOIN behaviors b ON b.id = nb.BehaviorId WHERE nb.StudentId = ?`,
+//             {
+//                 replacements: [req.params.StudentId], type: db.sequelize.QueryTypes.SELECT
+//             }).then(response => {
+//             console.log(response))
+// }})
+
+app.get("/api/Num_Behaviors_Join/:StudentId", (req, res) => {
+    db.sequelize.query(`SELECT * FROM num_behaviors nb JOIN behaviors b ON b.id = nb.BehaviorId WHERE nb.StudentId = ?`,
+    {
+                replacements: [req.params.StudentId], type: db.sequelize.QueryTypes.SELECT
+            }).then(function (dbNum_Behavior) {
+        res.json(dbNum_Behavior)
+    })
+})
+
 //////////////////////////////////////////////CREATE DATA////////////////////////////////////////////
 
 //create user//////////////////
@@ -132,11 +149,24 @@ app.post("/api/Student/:UserId", function (req, res) {
         date_of_birth: req.body.date_of_birth,
         teacher_name: req.body.teacher_name,
         bcba_name: req.body.bcba_name,
+        image: req.body.image,
         UserId: req.params.UserId
     }).then(response => {
         console.log(response);
     });
 });
+
+    app.post("/api/Student/delete/:id", function (req, res) {
+        db.Student.destroy({
+            where: {
+                id: req.params.id
+            }
+        }
+        ).then(function (dbStudent) {
+            res.json(dbStudent);
+        });
+    
+    });
 
 //add behavior for student
 app.post("/api/Behavior/:StudentId", function (req, res) {
@@ -150,10 +180,14 @@ app.post("/api/Behavior/:StudentId", function (req, res) {
 
 //add number of behaviors for each unique behavior
 app.post("/api/num_behavior/:BehaviorId/:StudentId", function (req, res) {
+    const today = new Date();
+    const todayHour = today.getHours();
+
     db.Num_Behavior.create({
         num_behavior: req.body.num_behavior,
         BehaviorId: req.params.BehaviorId,
-        StudentId: req.params.StudentId
+        StudentId: req.params.StudentId,
+        date: todayHour
     }).then(response => {
         console.log(response);
     });

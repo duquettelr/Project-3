@@ -18,6 +18,7 @@ export default class AddBehavior extends Component {
             type: this.state.type
 
         });
+        
     }
 
     render() {

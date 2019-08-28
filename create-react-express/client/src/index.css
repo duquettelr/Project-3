@@ -68,17 +68,41 @@ body {
   padding: 10px;
   border-radius: 25px;
   border-style: solid;
-  border-color: white;
-  border-width: 1px; 
+  border-color: gold;
+  border-width: 3px;
+  display: inline-block;
+  margin: 1px;
   margin: auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  width: 800px;
+  /* align: center; */ 
 }
 
 .profileTitle {
   font-size: 40px;
   font-weight: bold;
+}
+
+.profileHeaders {
+  font-size: 25px;
+}
+
+.profileData {
+  font-size: 25px;
+}
+
+.delete {
+  float: right;
+}
+
+.delete:hover {
+box-shadow: inset 0 0 0 3px #3a7999;
+cursor: pointer;
+}
+
+
+.profilePhoto {
+  margin: auto;
+  padding: 10px;
+  border-radius: 25px;
 }
 
 .profileContainer {

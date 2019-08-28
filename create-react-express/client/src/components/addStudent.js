@@ -21,9 +21,11 @@ export default class AddStudent extends Component {
             age: this.state.age,
             date_of_birth: this.state.date_of_birth,
             teacher_name: this.state.teacher_name,
-            bcba_name: this.state.bcba_name
+            bcba_name: this.state.bcba_name,
+            image: this.state.image
 
         });
+        
     }
 
     render() {
@@ -94,6 +96,16 @@ export default class AddStudent extends Component {
                                 value={this.state.bcba_name}
                                 type="name"
                                 placeholder="Enter bcba name"
+                                onChange={this.handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicCheckbox">
+                            <Form.Label>Image Link</Form.Label>
+                            <Form.Control
+                                name="image"
+                                value={this.state.image}
+                                type="name"
+                                placeholder="Enter image link"
                                 onChange={this.handleChange}
                             />
                         </Form.Group>

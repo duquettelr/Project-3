@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 module.exports = function (sequelize, DataTypes) {
     var Student = sequelize.define("Student", {
         name: {
@@ -23,6 +25,14 @@ module.exports = function (sequelize, DataTypes) {
         bcba_name: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        pdf: {
+            type: Sequelize.BLOB('long'),
+            allowNull: true,
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     });
 

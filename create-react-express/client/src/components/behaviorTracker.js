@@ -7,6 +7,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from "react-router-dom";
 import Tracker from "./tracker.js";
 import BehaviorGraph from "./behaviorGraph.js";
+import Profile from "./profile.js";
 
 
 
@@ -67,9 +68,11 @@ class BehaviorTracker extends Component {
             <Navbar>
                     <Nav className="mr-auto">
                         <Nav.Link href={"/Student/"+this.props.match.params.id+"/Data"}>View Data</Nav.Link>
+                        <Nav.Link href={"/Profile/"+this.props.match.params.id}>Profile</Nav.Link>
                         </Nav>
             </Navbar>
             <Route exact path="/Student/:id/Data" component={BehaviorGraph} />
+            <Route path="/Profile/:id" component={Profile} />
             {/* <Link to={"/Student/"+this.props.match.params.id+"/Data"} variant="light">View Data</Link> */}
             </Router>
                 <Button variant="secondary" size="xxl" onClick={this.showModal}>Add Behavior</Button>

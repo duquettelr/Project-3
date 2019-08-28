@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Badge } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from "react-router-dom";
 import BehaviorTracker from "./behaviorTracker";
 import AddStudent from "./addStudent"
@@ -11,6 +11,14 @@ class StudentList extends Component {
     //     state = {
     //     show: false
     // }
+        deleteStudent = (e) => {
+             axios.post('/api/Student/delete/'+e).then(function (results) {
+                console.log(results)
+             });
+
+        }
+
+
 
     showModal = () => {
         this.setState({ show: !this.state.show });
@@ -88,7 +96,7 @@ class StudentList extends Component {
                                     </li> */}
                                     {this.state.students.map(result => (
                                         <li className="list-group-item" key={result.id}>
-                                            <Link to={"/Students/"+result.id} id={result.id}>{result.name}</Link>
+                                            <Link to={"/Students/"+result.id} id={result.id}>{result.name}</Link><Badge pill variant="secondary" className="delete" value={result.id} onClick={() => this.deleteStudent(result.id)}>X</Badge>
                                         </li>
                                     ))}
                                 </Router>

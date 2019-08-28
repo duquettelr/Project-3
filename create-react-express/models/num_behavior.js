@@ -3,6 +3,10 @@ module.exports = function (sequelize, DataTypes) {
         num_behavior: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        date: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     });
 
