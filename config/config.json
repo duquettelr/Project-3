@@ -17,11 +17,13 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "qlp35wqrmwfa65ro",
+    "password": "hoiye61n2x860a55",
+    "database": "tbc98ri6gsjk0mh5",
+    "host": "qbct6vwi8q648mrn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "use_env_variable": "JAWSDB_URL",
+    "port": 3306
   }
 }
