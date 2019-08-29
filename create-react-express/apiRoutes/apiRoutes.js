@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const app = require("express").Router();
 const user = require("../models/user.js");
 const student = require("../models/student.js");
@@ -13,14 +12,34 @@ const Op = Sequelize.Op;
 // router.post("/register", (req, res) => {
 //   // Form validation
 
-// User.findOne({ email: req.body.email }).then(user => {
-//     if (user) {
-//       return res.status(400).json({ email: "Email already exists" });
-//     } else {
-//       const newUser = new User({
-//         email: req.body.email,
-//         password: req.body.password
-//       });
+
+      app.get("/api/login/email", function (req, res) {
+        db.User.findOne({ where: { email: req.body.email } })
+            .then(function (user) {
+                if (user) {
+                    return res.status(400).json({ email: "Email already exists" });
+                  } else {
+                    const newUser = new User({
+                      email: req.body.email,
+                      password: req.body.password
+                    })
+                }
+        })
+    }
+
+    // bcrypt.genSalt(10, (err, salt) => {
+    //     bcrypt.hash(newUser.password, salt, (err, hash) => {
+    //       if (err) throw err;
+    //       newUser.password = hash;
+    //       newUser
+    //         .save()
+    //         .then(user => res.json(user))
+    //         .catch(err => console.log(err));
+    //     });
+    //   })
+    
+    
+
 
 // // Hash password before saving in database
 //       bcrypt.genSalt(10, (err, salt) => {
