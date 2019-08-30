@@ -202,7 +202,7 @@ app.post("/api/Behavior/:StudentId", function(req, res) {
 app.post("/api/num_behavior/:BehaviorId/:StudentId", function(req, res) {
   const today = new Date();
   const todayHour = today.getHours();
-
+  console.log(todayHour);
   db.Num_Behavior.create({
     num_behavior: req.body.num_behavior,
     BehaviorId: req.params.BehaviorId,
