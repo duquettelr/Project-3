@@ -57,7 +57,7 @@ app.get("/api/Students/:UserId", function(req, res) {
   db.Student.findAll({ where: { UserId: req.params.UserId } }).then(function(
     dbStudent
   ) {
-    res.json(dbStudent);
+    return res.json(dbStudent);
   });
 });
 
@@ -66,7 +66,7 @@ app.get("/api/oneStudent/:id", function(req, res) {
   db.Student.findOne({ where: { id: req.params.id } }).then(function(
     dbStudent
   ) {
-    res.json(dbStudent);
+    return res.json(dbStudent);
   });
 });
 
@@ -74,7 +74,7 @@ app.get("/api/oneStudent/:id", function(req, res) {
 app.get("/api/Behaviors/:StudentId", function(req, res) {
   db.Behavior.findAll({ where: { StudentId: req.params.StudentId } }).then(
     function(dbBehavior) {
-      res.json(dbBehavior);
+      return res.json(dbBehavior);
     }
   );
 });
@@ -89,7 +89,7 @@ app.get("/api/Num_Behaviors/:StudentId", function(req, res) {
       } // square brackets are needed for property names that aren't plain strings
     }
   }).then(function(dbNum_Behavior) {
-    res.json(dbNum_Behavior);
+    return res.json(dbNum_Behavior);
   });
 });
 
@@ -111,7 +111,7 @@ app.get("/api/Num_Behaviors_Join/:StudentId", (req, res) => {
       }
     )
     .then(function(dbNum_Behavior) {
-      res.json(dbNum_Behavior);
+      return res.json(dbNum_Behavior);
     });
 });
 
@@ -124,6 +124,7 @@ app.post("/api/User", function(req, res) {
     password: req.body.password
   }).then(response => {
     console.log(response);
+    return res.json(response);
   });
 });
 ////////////////////////////////
@@ -173,7 +174,7 @@ app.post("/api/Student/:UserId", function(req, res) {
     image: req.body.image,
     UserId: req.params.UserId
   }).then(response => {
-    console.log(response);
+    return res.json(response);
   });
 });
 
@@ -183,7 +184,7 @@ app.post("/api/Student/delete/:id", function(req, res) {
       id: req.params.id
     }
   }).then(function(dbStudent) {
-    res.json(dbStudent);
+    return res.json(dbStudent);
   });
 });
 
@@ -193,7 +194,7 @@ app.post("/api/Behavior/:StudentId", function(req, res) {
     type: req.body.type,
     StudentId: req.params.StudentId
   }).then(response => {
-    console.log(response);
+    return res.json(response);
   });
 });
 
@@ -208,7 +209,7 @@ app.post("/api/num_behavior/:BehaviorId/:StudentId", function(req, res) {
     StudentId: req.params.StudentId,
     date: todayHour
   }).then(response => {
-    console.log(response);
+    return res.json(response);
   });
 });
 
