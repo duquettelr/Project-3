@@ -201,6 +201,7 @@ app.post("/api/Behavior/:StudentId", function(req, res) {
 //add number of behaviors for each unique behavior
 app.post("/api/num_behavior/:BehaviorId/:StudentId", function(req, res) {
   const today = new Date();
+  console.log(today);
   const todayHour = today.getHours();
   console.log(todayHour);
   db.Num_Behavior.create({
