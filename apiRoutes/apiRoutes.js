@@ -1,55 +1,96 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const app = require("express").Router();
-const user = require("../models/user.js");
-const student = require("../models/student.js");
-const behavior = require("../models/behavior.js");
-const num_behavior = require("../models/num_behavior.js");
+// const user = require("../models/user.js");
+// const student = require("../models/student.js");
+// const behavior = require("../models/behavior.js");
+// const num_behavior = require("../models/num_behavior.js");
+const keys = require("../config/keys");
 const db = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
+app.post("/api/User", function(req, res) {
+  db.User.create({
+    email: req.body.email,
+    password: req.body.password
+  }).then(response => {
+    console.log(response);
+    return res.json(response);
+  });
+});
+
 // router.post("/register", (req, res) => {
 //   // Form validation
+app.get("/api/getUser/:email", function(req, res) {
+  db.User.findOne({ where: { email: req.params.email } }).then(response => {
+    return res.json(response);
+  });
+});
 
-//   app.get("/api/login/email", function (req, res) {
-//     db.User.findOne({ where: { email: req.body.email } })
-//         .then(function (user) {
-//             if (user) {
-//                 return res.status(400).json({ email: "Email already exists" });
-//               } else {
-//                 const newUser = new User({
-//                   email: req.body.email,
-//                   password: req.body.password
-//                 })
-//             }
-//     })
-// }
+app.post("/api/register", function(req, res) {
+  db.User.findOne({ where: { email: req.body.email } }).then(response => {
+    if (response) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+          if (err) throw err;
+          req.body.password = hash;
 
-// bcrypt.genSalt(10, (err, salt) => {
-//     bcrypt.hash(newUser.password, salt, (err, hash) => {
-//       if (err) throw err;
-//       newUser.password = hash;
-//       newUser
-//         .save()
-//         .then(user => res.json(user))
-//         .catch(err => console.log(err));
-//     });
-//   })
+          db.User.create({
+            email: req.body.email,
+            password: hash
+          }).then(response => {
+            console.log(response);
+            return res.json(response);
+          });
+        });
+      });
+    }
+  });
+});
+//////////////////\\\\\\\\\\\/////////////////\\\\\\\\\\/////////////////\\\\\\\\\\
+app.post("/api/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  // Find user by email
+  db.User.findOne({ where: { email: req.body.email } }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ emailnotfound: "Email not found" });
+    }
+    // Check password
+    bcrypt.compare(password, user.dataValues.password).then(isMatch => {
+      if (isMatch) {
+        // User matched
+        // Create JWT Payload
+        const payload = {
+          id: user.dataValues.id
+        };
+        // Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926 // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
+});
 
-// // Hash password before saving in database
-//       bcrypt.genSalt(10, (err, salt) => {
-//         bcrypt.hash(newUser.password, salt, (err, hash) => {
-//           if (err) throw err;
-//           newUser.password = hash;
-//           newUser
-//             .save()
-//             .then(user => res.json(user))
-//             .catch(err => console.log(err));
-//         });
-//       });
-
-// }
 ///////////////////////////////////////////////DISPLAY INFO//////////////////////////////////////////////////
 
 //get all students to display on home page
@@ -201,9 +242,7 @@ app.post("/api/Behavior/:StudentId", function(req, res) {
 //add number of behaviors for each unique behavior
 app.post("/api/num_behavior/:BehaviorId/:StudentId", function(req, res) {
   const today = new Date();
-  console.log(today);
   const todayHour = today.getHours();
-  console.log(todayHour);
   db.Num_Behavior.create({
     num_behavior: req.body.num_behavior,
     BehaviorId: req.params.BehaviorId,

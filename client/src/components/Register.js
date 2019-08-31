@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 
-export default class Login extends Component {
+export default class Register extends Component {
   state = {
     email: "",
     password: ""
@@ -16,33 +16,23 @@ export default class Login extends Component {
     });
   };
 
-  login = e => {
+  register = e => {
     e.preventDefault();
     console.log(this.state);
     axios
-      .post("/api/login", {
+      .post("/api/register", {
         email: this.state.email,
         password: this.state.password
       })
-      .then(res => {
-        console.log(res);
-        axios.get(`api/getUser/${this.state.email}`).then(res => {
-          console.log(res);
-          this.setState({
-            id: res.data.id
-          });
-          this.props.history.push(`/List/${res.data.id}`);
-        });
-      });
+      .then(this.props.history.push(`/`));
   };
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <h1 className="title">Fast-Track</h1>
         <div className="loginCard">
-          <h3>Login</h3>
+          <h3>Register</h3>
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
@@ -65,8 +55,8 @@ export default class Login extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button variant="secondary" type="submit" onClick={this.login}>
-              Login
+            <Button variant="secondary" type="submit" onClick={this.register}>
+              Register
             </Button>
           </Form>
         </div>
