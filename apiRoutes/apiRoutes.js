@@ -143,6 +143,20 @@ app.get("/api/Num_Behaviors/:StudentId", function(req, res) {
   });
 });
 
+//get num behavior by behaviorID
+app.get("/api/Num_Behaviors/Behavior/:BehaviorId", function(req, res) {
+  db.Num_Behavior.findAll({
+    where: {
+      BehaviorId: req.params.BehaviorId,
+      createdAt: {
+        [Op.gte]: new Date(new Date() - 24 * 60 * 60 * 1000)
+      } // square brackets are needed for property names that aren't plain strings
+    }
+  }).then(function(dbNum_Behavior) {
+    return res.json(dbNum_Behavior);
+  });
+});
+
 // app.get("/api/Num_Behaviors_Join/:StudentId", (req, res) => {
 //         db.sequelize.query(`SELECT * FROM num_behaviors nb JOIN behaviors b ON b.id = nb.BehaviorId WHERE nb.StudentId = ?`,
 //             {

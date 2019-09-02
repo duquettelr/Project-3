@@ -23,6 +23,8 @@ import { ExportToCsv } from "export-to-csv";
 //graph array
 const timeArray = [];
 const frequencyArray = [];
+const timeArray2 = [];
+const frequencyArray2 = [];
 const today = new Date();
 console.log("today is" + today);
 const todayYear = today.getFullYear();
@@ -36,23 +38,23 @@ const numBeh = [];
 
 class BehaviorGraph extends Component {
   state = {
-    frequency: [],
-    time: [],
     frequencyData: [],
     tableData: [],
     barData: {},
-    numBehaviors: []
+    numBehaviors: [],
+    behaviorsArray: [],
+    graphData2: []
   };
 
   //get all behavior IDs
   //map & filter
 
   componentDidMount() {
-    axios.get(`/api/Behaviors/${this.props.match.params.id}`).then(response =>
+    axios.get(`/api/Behaviors/${this.props.match.params.id}`).then(response => {
       this.setState({
         numBehaviors: response.data
-      })
-    );
+      });
+    });
 
     axios.get(`/api/Num_Behaviors/${this.props.match.params.id}`).then(
       response => {
@@ -89,6 +91,55 @@ class BehaviorGraph extends Component {
           tableData: response.data
         });
       });
+    let graphData = [];
+    axios.get(`/api/Behaviors/${this.props.match.params.id}`).then(response => {
+      this.setState({
+        behaviorsArray: response.data
+      });
+      console.log(response);
+
+      response.data.forEach(element => {
+        console.log(element);
+        axios
+          .get(`/api/Num_Behaviors/Behavior/${element.id}`)
+          .then(response => {
+            console.log(response);
+            this.setState({
+              graphData2: response.data
+            });
+            let TA = [];
+            let FA = [];
+            let BT;
+
+            response.data.forEach(element => {
+              TA.push(element.date + ":00");
+              FA.push(element.num_behavior);
+            });
+            console.log(TA);
+            console.log(FA);
+
+            graphData.push({
+              labels: TA,
+              datasets: [
+                {
+                  label: element.type,
+                  fill: true,
+                  backgroundColor: "rgb(113, 112, 112)",
+                  borderColor: "rgb(42, 39, 39)",
+                  data: FA,
+                  options: {}
+                }
+              ]
+            });
+
+            console.log(graphData);
+
+            this.setState({
+              graphData2: graphData
+            });
+          });
+      });
+    });
   }
 
   exportData = () => {
@@ -111,6 +162,7 @@ class BehaviorGraph extends Component {
   };
 
   render() {
+    console.log(this.state.graphData2);
     console.log(this.state.barData);
     return (
       <div>
@@ -140,7 +192,10 @@ class BehaviorGraph extends Component {
               <p className="lead">
                 Frequency of engaged maladaptive behaviors today.
               </p>
-              <Bar ref="chart" data={this.state.barData} />
+              {this.state.graphData2.map(result => (
+                <Bar ref="chart" data={result}></Bar>
+              ))}
+              {/* <Bar ref="chart" data={this.state.barData} /> */}
             </div>
             <div className="col-md-6 bChart">
               <Table striped bordered hover>
