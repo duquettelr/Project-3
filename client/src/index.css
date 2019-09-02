@@ -5,6 +5,7 @@ body {
   background: url("./2527832.jpg");
   background-repeat: no-repeat;
   background-size: 1600px 900px;
+  background-repeat: repeat-y;
 }
 
 .title {
@@ -23,10 +24,9 @@ body {
   border-color: white;
   border-width: 2px;
   margin: auto;
-  
+
   padding: 10px;
   width: 500px;
-
 }
 
 .studentList {
@@ -40,12 +40,18 @@ body {
 }
 
 .behavior {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .number {
   font-size: 30px;
   float: right;
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .trackButtons {
@@ -63,6 +69,11 @@ body {
   width: 100px;
 }
 
+.graphDesc {
+  margin: auto;
+  text-align: center;
+}
+
 .bChart {
   background: white;
   padding: 10px;
@@ -71,9 +82,11 @@ body {
   border-color: gold;
   border-width: 3px;
   display: inline-block;
-  margin: 1px;
-  margin: auto;
-  /* align: center; */ 
+  margin: 20px;
+  width: 800px;
+  width: 50%;
+  /* margin: auto; */
+  /* align: center; */
 }
 
 .profileTitle {
@@ -94,10 +107,9 @@ body {
 }
 
 .delete:hover {
-box-shadow: inset 0 0 0 3px #3a7999;
-cursor: pointer;
+  box-shadow: inset 0 0 0 3px #3a7999;
+  cursor: pointer;
 }
-
 
 .profilePhoto {
   margin: auto;
@@ -111,7 +123,7 @@ cursor: pointer;
   border-radius: 25px;
   border-style: solid;
   border-color: white;
-  border-width: 1px; 
+  border-width: 1px;
   margin: auto;
   margin-top: 100px;
   margin-bottom: 100px;
@@ -130,7 +142,7 @@ cursor: pointer;
   border-radius: 25px;
   border-style: solid;
   border-color: white;
-  border-width: 1px; 
+  border-width: 1px;
 }
 
 .btn {

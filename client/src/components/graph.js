@@ -98,14 +98,15 @@ class Graph extends Component {
       <div>
         <div className="container">
           <div className="row">
-            <div className="col-md-6 bChart">
+            <div className="col-md-12 bChart">
               <h1 className="chartTitle">Frequency of Maladaptive Behaviors</h1>
-              <p className="lead">
+              <p className="lead graphDesc">
                 Frequency of engaged maladaptive behaviors today.
               </p>
               <Bar ref="chart" data={this.state.barData} />
             </div>
-            <div className="col-md-6 bChart">
+            <div className="row"></div>
+            <div className="col-md-12 bChart">
               <Table striped bordered hover>
                 <thead>
                   <tr>

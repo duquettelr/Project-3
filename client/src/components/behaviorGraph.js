@@ -186,18 +186,22 @@ class BehaviorGraph extends Component {
           Export Data
         </Button>
         <div className="container">
-          <div className="row">
-            <div className="col-md-6 bChart">
+          <div className="row justify-content-md-center">
+            <div className="col-md-8 bChart">
               <h1 className="chartTitle">Frequency of Maladaptive Behaviors</h1>
               <p className="lead">
-                Frequency of engaged maladaptive behaviors today.
+                Today's data for frequency of maladaptive behaviors.
               </p>
-              {this.state.graphData2.map(result => (
-                <Bar ref="chart" data={result}></Bar>
-              ))}
-              {/* <Bar ref="chart" data={this.state.barData} /> */}
+              <div className="row justify-content-md-center">
+                {this.state.graphData2.map(result => (
+                  <span>
+                    <Bar ref="chart" data={result}></Bar>
+                  </span>
+                ))}
+                {/* <Bar ref="chart" data={this.state.barData} /> */}
+              </div>
             </div>
-            <div className="col-md-6 bChart">
+            <div className="col-md-8 bChart">
               <Table striped bordered hover>
                 <thead>
                   <tr>
