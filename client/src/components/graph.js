@@ -91,26 +91,11 @@ class Graph extends Component {
       );
   }
 
-  render() {
+  render(props) {
     console.log(this.state);
+    console.log(this.props);
     return (
       <div>
-        <Router>
-          <Navbar>
-            <Nav className="mr-auto">
-              <Nav.Link href={"/Students/" + this.props.match.params.id}>
-                Tracker
-              </Nav.Link>
-              <Nav.Link href={"/Profile/" + this.props.match.params.id}>
-                Profile
-              </Nav.Link>
-            </Nav>
-          </Navbar>
-          <Route path="/Students/:id" component={BehaviorTracker} />
-          <Route path="/Profile/:id" component={Profile} />
-          {/* <Link to={"/Student/"+this.props.match.params.id+"/Data"} variant="light">View Data</Link> */}
-        </Router>
-
         <div className="container">
           <div className="row">
             <div className="col-md-6 bChart">

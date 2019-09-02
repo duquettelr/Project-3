@@ -165,6 +165,20 @@ app.get("/api/Num_Behaviors_Join/:StudentId", (req, res) => {
     });
 });
 
+app.get("/api/Num_Behaviors_Join/export/:StudentId", (req, res) => {
+  db.sequelize
+    .query(
+      `SELECT * FROM Num_Behaviors nb JOIN Behaviors b ON b.id = nb.BehaviorId WHERE nb.StudentId = ?`,
+      {
+        replacements: [req.params.StudentId],
+        type: db.sequelize.QueryTypes.SELECT
+      }
+    )
+    .then(function(dbNum_Behavior) {
+      return res.json(dbNum_Behavior);
+    });
+});
+
 //////////////////////////////////////////////CREATE DATA////////////////////////////////////////////
 
 //create user//////////////////

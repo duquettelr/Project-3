@@ -3,7 +3,6 @@ import StudentList from "./studentList";
 import { Modal, Button, Navbar, Nav, Table } from "react-bootstrap";
 import AddBehavior from "./addBehavior";
 import axios from "axios";
-// import Graoh from "./graph.js";
 // import { Modal, Button } from 'react-bootstrap';
 import {
   BrowserRouter as Router,
@@ -16,6 +15,7 @@ import Tracker from "./tracker.js";
 import { Bar } from "react-chartjs-2";
 import BehaviorTracker from "./behaviorTracker";
 import Profile from "./profile";
+import { ExportToCsv } from "export-to-csv";
 
 //make sequelize time stamp accurate (subtract 5 from the time, if time is === 5 set to 24, if === 4 set to 23, 3 - 22, 2- 21)
 //need to get current date, find all behavior frequency data for current date,
@@ -58,7 +58,6 @@ class BehaviorGraph extends Component {
       response => {
         console.log(response);
         response.data.forEach(element => {
-          // dataTest.push({x: element.date, y: element.num_behavior})
           timeArray.push(element.date + ":00");
           frequencyArray.push(element.num_behavior);
         });
@@ -85,15 +84,34 @@ class BehaviorGraph extends Component {
 
     axios
       .get(`/api/Num_Behaviors_Join/${this.props.match.params.id}`)
-      .then(response =>
+      .then(response => {
         this.setState({
           tableData: response.data
-        })
-      );
+        });
+      });
   }
 
+  exportData = () => {
+    const options = {
+      fieldSeparator: ",",
+      quoteStrings: '"',
+      decimalSeparator: ".",
+      showLabels: true,
+      showTitle: true,
+      title: "Behavior Frequency",
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: true
+      // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
+    };
+
+    const csvExporter = new ExportToCsv(options);
+
+    csvExporter.generateCsv(this.state.tableData);
+  };
+
   render() {
-    console.log(this.state);
+    console.log(this.state.barData);
     return (
       <div>
         <Router>
@@ -112,6 +130,9 @@ class BehaviorGraph extends Component {
           {/* <Link to={"/Student/"+this.props.match.params.id+"/Data"} variant="light">View Data</Link> */}
         </Router>
 
+        <Button variant="secondary" size="xxl" onClick={this.exportData}>
+          Export Data
+        </Button>
         <div className="container">
           <div className="row">
             <div className="col-md-6 bChart">
