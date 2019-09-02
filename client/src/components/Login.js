@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal, Form, Nav } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 export default class Login extends Component {
   state = {
@@ -42,7 +43,7 @@ export default class Login extends Component {
       <div>
         <h1 className="title">Fast-Track</h1>
         <div className="loginCard">
-          <h3>Login</h3>
+          <h3 className="login">Login</h3>
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
@@ -69,6 +70,7 @@ export default class Login extends Component {
               Login
             </Button>
           </Form>
+          <Nav className="mr-auto">New user? Click Register to sign up!</Nav>
         </div>
       </div>
     );

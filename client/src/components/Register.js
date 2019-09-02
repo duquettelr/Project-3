@@ -32,7 +32,15 @@ export default class Register extends Component {
       <div>
         <h1 className="title">Fast-Track</h1>
         <div className="loginCard">
-          <h3>Register</h3>
+          <p className="appDesc">
+            Get your students on the fast track to succesful behavior management
+            with our behavior tracking software. Fast-Track allows behavioral
+            analysts, paraprofessionals and support staff to track behaviors
+            quickly, view daily behavior trends, and export student's data into
+            excel spreadsheet for data manipulation and analyzation. Register to
+            start your behavior management journey!
+          </p>
+          <h3 className="login">Register</h3>
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
