@@ -3,7 +3,6 @@ import StudentList from "./studentList";
 import { Modal, Button, Navbar, Nav, Table } from "react-bootstrap";
 import AddBehavior from "./addBehavior";
 import axios from "axios";
-// import Graoh from "./graph.js";
 // import { Modal, Button } from 'react-bootstrap';
 import {
   BrowserRouter as Router,
@@ -34,7 +33,7 @@ console.log(todayDate);
 
 const numBeh = [];
 
-class BehaviorGraph extends Component {
+class Graph extends Component {
   state = {
     frequency: [],
     time: [],
@@ -148,4 +147,4 @@ class BehaviorGraph extends Component {
   }
 }
 
-export default withRouter(BehaviorGraph);
+export default withRouter(Graph);

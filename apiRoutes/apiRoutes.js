@@ -111,6 +111,15 @@ app.get("/api/oneStudent/:id", function(req, res) {
   });
 });
 
+//individual user from student table
+app.get("/api/oneUser/:studentId", function(req, res) {
+  db.Student.findOne({ where: { id: req.params.studentId } }).then(function(
+    dbStudent
+  ) {
+    return res.json(dbStudent);
+  });
+});
+
 //get student behavior
 app.get("/api/Behaviors/:StudentId", function(req, res) {
   db.Behavior.findAll({ where: { StudentId: req.params.StudentId } }).then(

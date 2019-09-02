@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Modal, Button, Badge } from "react-bootstrap";
+import { Modal, Button, Badge, Nav } from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Route,
@@ -28,6 +28,7 @@ class StudentList extends Component {
   };
   handleClose = () => {
     this.setState({ show: !this.state.show });
+    window.location.reload(true);
   };
 
   saveChanges = student => {
@@ -105,10 +106,10 @@ class StudentList extends Component {
                                     </li> */}
                   {this.state.students.map(result => (
                     <li className="list-group-item" key={result.id}>
-                      <Link to={"/Students/" + result.id} id={result.id}>
+                      <Nav.Link href={"/Students/" + result.id} id={result.id}>
                         {result.name}
-                      </Link>
-                      <Badge
+                      </Nav.Link>
+                      {/* <Badge
                         pill
                         variant="secondary"
                         className="delete"
@@ -116,7 +117,7 @@ class StudentList extends Component {
                         onClick={() => this.deleteStudent(result.id)}
                       >
                         X
-                      </Badge>
+                      </Badge> */}
                     </li>
                   ))}
                 </Router>

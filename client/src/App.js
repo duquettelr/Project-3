@@ -19,7 +19,7 @@ class App extends Component {
           <Navbar variant="light" bg="light">
             <Navbar.Brand href="#home">Fast-Track</Navbar.Brand>
             <Nav className="mr-auto">
-              <Nav.Link href="/List/:id">Student List</Nav.Link>
+              {/* <Nav.Link href="/List/:id">Student List</Nav.Link> */}
               <Nav.Link href="/">Login</Nav.Link>
               <Nav.Link href="/Register">Register</Nav.Link>
             </Nav>
