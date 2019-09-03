@@ -168,7 +168,7 @@ class BehaviorGraph extends Component {
       <div>
         <Router>
           <Navbar>
-            <Nav className="mr-auto">
+            <Nav className="mr-auto secondNav">
               <Nav.Link href={"/Students/" + this.props.match.params.id}>
                 Tracker
               </Nav.Link>
@@ -208,6 +208,7 @@ class BehaviorGraph extends Component {
                     <th>Behavior Type</th>
                     <th>Frequency</th>
                     <th>Time</th>
+                    <th>Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -216,6 +217,7 @@ class BehaviorGraph extends Component {
                       <td>{result.type}</td>
                       <td>{result.num_behavior}</td>
                       <td>{result.date}:00</td>
+                      <td>{result.createdAt.split("T")[0]}</td>
                     </tr>
                   ))}
                 </tbody>
