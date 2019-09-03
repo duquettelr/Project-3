@@ -34,8 +34,6 @@ console.log(todayYear);
 console.log(todayMonth);
 console.log(todayDate);
 
-const numBeh = [];
-
 class BehaviorGraph extends Component {
   state = {
     frequencyData: [],
@@ -162,6 +160,7 @@ class BehaviorGraph extends Component {
   };
 
   render() {
+    console.log(this.state.tableData);
     console.log(this.state.graphData2);
     console.log(this.state.barData);
     return (
@@ -202,6 +201,9 @@ class BehaviorGraph extends Component {
               </div>
             </div>
             <div className="col-md-8 bChart">
+              <p className="lead">
+                All available data for frequency of maladaptive behaviors.
+              </p>
               <Table striped bordered hover>
                 <thead>
                   <tr>

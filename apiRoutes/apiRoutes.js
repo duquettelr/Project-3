@@ -168,7 +168,7 @@ app.get("/api/Num_Behaviors/Behavior/:BehaviorId", function(req, res) {
 app.get("/api/Num_Behaviors_Join/:StudentId", (req, res) => {
   db.sequelize
     .query(
-      `SELECT * FROM Num_Behaviors nb JOIN Behaviors b ON b.id = nb.BehaviorId WHERE nb.StudentId = ?`,
+      `SELECT b.type, nb.num_behavior, nb.date, nb.createdAt FROM Num_Behaviors nb JOIN Behaviors b ON b.id = nb.BehaviorId WHERE nb.StudentId = ?`,
       {
         replacements: [req.params.StudentId],
         type: db.sequelize.QueryTypes.SELECT
